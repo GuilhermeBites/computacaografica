@@ -32,17 +32,36 @@ tam = size(x);
 if length(tam) ~= 3
   display('A variavel de entrada nao e uma imagem no espaco RGB');
 end
-
+original = x;
 x = double(x);
+
 
 for i=1:tam(1)
   for j=1:tam(2)
-    
+  
     y(i,j) = ( x(i,j,1) + x(i,j,2) + x(i,j,3) ) / 3;
     y(i,j) = y(i,j)/255;
     
   end
 end
 
+
+figure;
+imshow(y);
+
+v_histograma = histograma(y);
+diferenca = 128 -  v_histograma;
+
+y = y + diferenca
+display(diferenca);
+
+y = double(y);
+y = y ./ max(y(:));
+[a b] = size(y);
+
+equalizado = histeq(y, a);
+
+figure;
+imshow(equalizado);
 
 endfunction
